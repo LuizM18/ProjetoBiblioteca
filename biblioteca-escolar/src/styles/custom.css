@@ -1,0 +1,1128 @@
+/* Importação de fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+/* Nova fonte para admin theme, exemplo (pode escolher outra): */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Quantico:wght@400;700&display=swap');
+
+
+/* Variáveis CSS para cores da paleta da biblioteca (DEFAULT) */
+:root {
+    --color-primary-dark: #2c3e50; /* Azul escuro quase preto para texto e fundos */
+    --color-secondary-gold: #f39c12; /* Dourado/Bronze para acentos */
+    --color-tertiary-green: #27ae60; /* Verde musgo para sucesso */
+    --color-quaternary-brown: #7f8c8d; /* Cinza marrom para texto suave */
+    --color-accent-light: #ecf0f1; /* Cinza claro para fundos */
+    --color-white: #ffffff;
+    --color-shadow-light: rgba(0, 0, 0, 0.1);
+    --color-shadow-medium: rgba(0, 0, 0, 0.2);
+    --color-text-muted: #6c757d; /* Cinza mais escuro para texto secundário */
+    --color-danger: #dc3545;
+    --color-info: #17a2b8;
+    --color-success: #28a745;
+    --color-warning: #ffc107;
+
+    /* Variáveis para a temática Dark Cósmica (ADMIN) */
+    --admin-bg-dark: #0a0a1a; /* Fundo preto muito escuro */
+    --admin-primary-purple: #4a007f; /* Roxo principal */
+    --admin-secondary-neon-blue: #00ffff; /* Azul neon para acentos */
+    --admin-text-light: #e0e0ff; /* Texto quase branco, levemente roxo */
+    --admin-glow-effect: #ff00ff; /* Magenta para brilho (estrela) */
+    --admin-fire-purple: #8A2BE2; /* Roxo para fogo */
+    --admin-fire-dark-purple: #4B0082; /* Roxo escuro para fogo */
+    --admin-shadow-cosmic: rgba(0, 0, 0, 0.6);
+}
+
+/* Base Body and HTML styles */
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif; /* Fonte padrão para o corpo */
+    background-color: var(--color-accent-light);
+    color: var(--color-primary-dark);
+    line-height: 1.6;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transição suave */
+}
+
+/* --- Layout Sticky Footer --- */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Adicionado o background padrão aqui também para garantir */
+    background-color: var(--color-accent-light);
+    color: var(--color-primary-dark);
+}
+
+/* Admin Theme Overrides */
+.app-container.admin-theme {
+    background-color: var(--admin-bg-dark);
+    color: var(--admin-text-light);
+    font-family: 'Quantico', sans-serif; /* Nova fonte para o tema admin */
+    overflow-x: hidden; /* Evita scroll horizontal por causa do bg */
+    position: relative; /* Para o background animado */
+    z-index: 1; /* Garante que o conteúdo fique acima do fundo */
+}
+
+/* Fundo animado Dark Cósmico / Fogo Dracônico (para o admin theme) */
+.app-container.admin-theme::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="fire" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence baseFrequency="0.02" numOctaves="3" seed="0" stitchTiles="stitch" type="fractalNoise" result="turbulence"/><feDiffuseLighting surfaceScale="2" diffuseConstant="1" lighting_color="white" result="lighting"><fePointLight x="50" y="50" z="60"/></feDiffuseLighting><feComposite in="lighting" in2="turbulence" operator="arithmetic" k1="1.5" k2="0" k3="0" k4="0"/></filter><rect width="100" height="100" filter="url(%23fire)" opacity="0.6"/><circle cx="20" cy="20" r="15" fill="%238A2BE2" opacity="0.4" /><circle cx="80" cy="30" r="10" fill="%234B0082" opacity="0.3" /><circle cx="40" cy="70" r="12" fill="%238A2BE2" opacity="0.5" /></svg>'); /* SVG de fundo com roxos */
+    background-size: cover;
+    opacity: 0.2; /* Transparência suave */
+    animation: cosmicBackground 30s linear infinite alternate, nebulaMove 60s linear infinite; /* Animações de fundo */
+    z-index: -1; /* Fica atrás do conteúdo */
+}
+
+@keyframes cosmicBackground {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+@keyframes nebulaMove {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.2; }
+    50% { transform: scale(1.1) rotate(5deg); opacity: 0.3; }
+    100% { transform: scale(1) rotate(0deg); opacity: 0.2; }
+}
+
+
+.content-wrap {
+    flex: 1;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    transition: background-color 0.5s ease;
+}
+
+/* Global Styles */
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif; /* Fonte serifada para títulos padrão */
+    color: var(--color-primary-dark);
+    transition: color 0.5s ease;
+}
+
+.admin-theme h1,
+.admin-theme h2,
+.admin-theme h3,
+.admin-theme h4,
+.admin-theme h5,
+.admin-theme h6,
+.admin-theme .section-title,
+.admin-theme .form-title {
+    font-family: 'Orbitron', sans-serif; /* Fonte futurista para títulos admin */
+    color: var(--admin-secondary-neon-blue); /* Azul neon para títulos admin */
+    text-shadow: 0 0 8px var(--admin-glow-effect); /* Efeito de brilho */
+}
+
+.section-title {
+    color: var(--color-primary-dark);
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-secondary-gold);
+    border-radius: 5px;
+    transition: background-color 0.5s ease;
+}
+
+.admin-theme .section-title::after {
+    background-color: var(--admin-primary-purple); /* Roxo para linha de admin */
+    box-shadow: 0 0 10px var(--admin-glow-effect); /* Brilho na linha */
+}
+
+.form-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--color-primary-dark);
+    font-weight: 700;
+}
+
+
+/* Text Colors (default) */
+.text-primary-custom { color: var(--color-primary-dark) !important; }
+.text-secondary-gold { color: var(--color-secondary-gold) !important; }
+.text-tertiary-green { color: var(--color-tertiary-green) !important; }
+.text-muted-brown { color: var(--color-quaternary-brown) !important; }
+.text-muted-grey { color: var(--color-text-muted) !important; }
+.text-dark-blue { color: var(--color-primary-dark) !important; }
+
+/* Admin Text Colors */
+.admin-theme .text-primary-custom,
+.admin-theme .text-dark-blue { color: var(--admin-text-light) !important; }
+.admin-theme .text-secondary-gold { color: var(--admin-secondary-neon-blue) !important; }
+.admin-theme .text-muted-brown,
+.admin-theme .text-muted-grey { color: rgba(224, 224, 255, 0.7) !important; } /* Texto suave com opacidade */
+
+
+/* Navbar */
+.navbar-dark.bg-primary-custom {
+    background-color: var(--color-primary-dark) !important;
+    box-shadow: 0 4px 8px var(--color-shadow-medium);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.admin-theme .navbar-dark.bg-primary-custom {
+    background-color: var(--admin-primary-purple) !important; /* Roxo escuro para navbar admin */
+    box-shadow: 0 4px 15px var(--admin-shadow-cosmic), 0 0 20px var(--admin-glow-effect) !important; /* Sombra e brilho */
+}
+
+
+.navbar-brand-custom {
+    font-family: 'Merriweather', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-secondary-gold) !important;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.admin-theme .navbar-brand-custom {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--admin-secondary-neon-blue) !important;
+    text-shadow: 0 0 10px var(--admin-glow-effect);
+}
+
+.navbar-brand-custom i {
+    font-size: 1.6rem;
+}
+
+.navbar-brand-custom:hover {
+    color: var(--color-white) !important;
+}
+.admin-theme .navbar-brand-custom:hover {
+    color: var(--admin-text-light) !important;
+    text-shadow: 0 0 15px var(--admin-secondary-neon-blue);
+}
+
+.nav-link-custom {
+    color: var(--color-accent-light) !important;
+    font-weight: 600;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.2s ease;
+    padding: 0.5rem 1rem;
+}
+
+.admin-theme .nav-link-custom {
+    color: var(--admin-text-light) !important;
+    font-family: 'Quantico', sans-serif;
+}
+
+.nav-link-custom:hover {
+    color: var(--color-secondary-gold) !important;
+    transform: translateY(-2px);
+}
+.admin-theme .nav-link-custom:hover {
+    color: var(--admin-secondary-neon-blue) !important;
+    text-shadow: 0 0 10px var(--admin-glow-effect);
+}
+
+.btn-outline-light-custom {
+    color: var(--color-secondary-gold);
+    border-color: var(--color-secondary-gold);
+    transition: all 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.admin-theme .btn-outline-light-custom {
+    color: var(--admin-secondary-neon-blue);
+    border-color: var(--admin-secondary-neon-blue);
+    background-color: transparent;
+    box-shadow: 0 0 5px var(--admin-secondary-neon-blue);
+}
+
+.btn-outline-light-custom:hover {
+    background-color: var(--color-secondary-gold);
+    color: var(--color-primary-dark);
+    border-color: var(--color-secondary-gold);
+}
+
+.admin-theme .btn-outline-light-custom:hover {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 15px var(--admin-secondary-neon-blue);
+}
+
+
+/* Footer */
+.footer-custom {
+    background-color: var(--color-primary-dark);
+    color: var(--color-accent-light);
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 -4px 8px var(--color-shadow-medium);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.admin-theme .footer-custom {
+    background-color: var(--admin-primary-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 -4px 15px var(--admin-shadow-cosmic), 0 0 20px var(--admin-glow-effect) !important;
+}
+
+.footer-custom p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.footer-custom a {
+    color: var(--color-secondary-gold);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.admin-theme .footer-custom a {
+    color: var(--admin-secondary-neon-blue);
+}
+
+.footer-custom a:hover {
+    color: var(--color-white);
+}
+.admin-theme .footer-custom a:hover {
+    color: var(--admin-glow-effect);
+}
+
+
+/* Form General Styles (for Login, CadastroLivro, CadastroFuncionario, CadastroAlunoUser) */
+.form-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    padding: 20px 0;
+    background-color: var(--color-accent-light);
+    transition: background-color 0.5s ease;
+}
+
+.admin-theme .form-page-container {
+    background-color: var(--admin-bg-dark); /* Fundo escuro para a página do formulário */
+}
+
+.form-card-container {
+    background-color: var(--color-white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--color-shadow-medium);
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 0.8s ease-out;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.admin-theme .form-card-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Card transparente escuro */
+    border: 1px solid var(--admin-primary-purple); /* Borda roxa */
+    box-shadow: 0 0 20px var(--admin-glow-effect), inset 0 0 10px var(--admin-secondary-neon-blue); /* Brilho cósmico */
+}
+
+.form-content .form-label {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+    margin-bottom: 5px;
+    transition: color 0.5s ease;
+}
+
+.admin-theme .form-content .form-label {
+    color: var(--admin-text-light); /* Labels claras no tema admin */
+}
+
+.form-content .form-control, .form-content .form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 10px 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+    background-color: var(--color-white);
+    color: var(--color-primary-dark);
+}
+
+.admin-theme .form-content .form-control, .admin-theme .form-content .form-select {
+    background-color: rgba(255, 255, 255, 0.1); /* Input de fundo semi-transparente */
+    border: 1px solid var(--admin-primary-purple);
+    color: var(--admin-text-light);
+}
+
+.form-content .form-control:focus, .form-content .form-select:focus {
+    border-color: var(--color-secondary-gold);
+    box-shadow: 0 0 0 0.25rem rgba(243, 156, 18, 0.25);
+    outline: none;
+}
+.admin-theme .form-content .form-control:focus, .admin-theme .form-content .form-select:focus {
+    border-color: var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.25), 0 0 10px var(--admin-secondary-neon-blue);
+}
+
+
+/* Custom Buttons (Primary, Success, Warning, Info, Danger, Dark) */
+.btn-primary-custom {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-primary-custom:hover {
+    background-color: #243340;
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--color-shadow-light);
+}
+
+.admin-theme .btn-primary-custom {
+    background-color: var(--admin-primary-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 0 10px var(--admin-primary-purple);
+}
+.admin-theme .btn-primary-custom:hover {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 20px var(--admin-secondary-neon-blue);
+}
+
+
+/* Admin Table Styles (GerenciarLivros, ListaFuncionario) */
+.admin-table {
+    background-color: var(--color-white);
+    color: var(--color-primary-dark);
+    border-radius: 12px;
+    overflow: hidden; /* Para cantos arredondados */
+    box-shadow: 0 8px 20px var(--color-shadow-medium);
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.admin-theme .admin-table {
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro semi-transparente para a tabela */
+    border: 1px solid var(--admin-primary-purple);
+    box-shadow: 0 0 20px var(--admin-glow-effect);
+    color: var(--admin-text-light);
+}
+
+.admin-table .table-dark-blue {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.admin-theme .admin-table .table-dark-blue {
+    background-color: var(--admin-primary-purple);
+    color: var(--admin-secondary-neon-blue);
+    text-shadow: 0 0 5px var(--admin-glow-effect);
+}
+
+.admin-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+.admin-table tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Leve hover no tema normal */
+}
+.admin-theme .admin-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Leve hover no tema admin */
+}
+
+/* Estilo para a linha do ADM na Lista de Funcionários */
+.admin-theme .admin-row {
+    position: relative;
+    background: linear-gradient(135deg, var(--admin-fire-dark-purple), var(--admin-fire-purple), var(--admin-fire-dark-purple));
+    color: var(--admin-text-light);
+    font-weight: bold;
+    animation: fireGradient 10s ease-in-out infinite alternate;
+    border: 2px solid var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 15px var(--admin-glow-effect), inset 0 0 10px var(--admin-secondary-neon-blue);
+    text-shadow: 0 0 5px var(--admin-secondary-neon-blue);
+}
+
+.admin-theme .admin-row td {
+    border-color: rgba(255, 255, 255, 0.2) !important; /* Bordas mais suaves */
+}
+
+@keyframes fireGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Adicionando pequenos brilhos para o fundo dracônico */
+.admin-theme .admin-row::before,
+.admin-theme .admin-row::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: var(--admin-secondary-neon-blue);
+    border-radius: 50%;
+    opacity: 0.3;
+    filter: blur(10px);
+    z-index: -1;
+    animation: pulseGlow 4s infinite alternate;
+}
+
+.admin-theme .admin-row::before {
+    top: 10%;
+    left: 5%;
+    animation-delay: 0s;
+}
+
+.admin-theme .admin-row::after {
+    bottom: 10%;
+    right: 5%;
+    animation-delay: 2s;
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.6; }
+    100% { transform: scale(1); opacity: 0.3; }
+}
+
+
+/* Existing Custom Button Styles (ensure they are defined) */
+.btn-outline-secondary-custom { /* Para o botão "Criar Conta" na Login.jsx */
+    color: var(--color-quaternary-brown);
+    border-color: var(--color-quaternary-brown);
+    background-color: transparent;
+    transition: all 0.3s ease;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.btn-outline-secondary-custom:hover {
+    background-color: var(--color-quaternary-brown);
+    color: var(--color-white);
+    border-color: var(--color-quaternary-brown);
+}
+.admin-theme .btn-outline-secondary-custom {
+    color: var(--admin-primary-purple);
+    border-color: var(--admin-primary-purple);
+}
+.admin-theme .btn-outline-secondary-custom:hover {
+    background-color: var(--admin-primary-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 0 10px var(--admin-primary-purple);
+}
+
+
+.btn-success-custom {
+    background-color: var(--color-tertiary-green);
+    color: var(--color-white);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-success-custom:hover {
+    background-color: #219d55;
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--color-shadow-light);
+}
+
+.admin-theme .btn-success-custom {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 10px var(--admin-secondary-neon-blue);
+}
+.admin-theme .btn-success-custom:hover {
+    background-color: #00cccc;
+    box-shadow: 0 0 20px #00ffff;
+}
+
+
+.btn-warning-custom {
+    background-color: var(--color-secondary-gold);
+    color: var(--color-white);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-warning-custom:hover {
+    background-color: #d18d0f;
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--color-shadow-light);
+}
+.admin-theme .btn-warning-custom {
+    background-color: var(--admin-primary-purple); /* Ajustado para um roxo */
+    box-shadow: 0 0 10px var(--admin-primary-purple);
+}
+.admin-theme .btn-warning-custom:hover {
+    background-color: var(--admin-fire-purple);
+    box-shadow: 0 0 20px var(--admin-fire-purple);
+}
+
+
+/* Cards - General Styles */
+.card {
+    border-radius: 12px;
+    border: none;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--color-shadow-medium);
+}
+
+.admin-theme .card {
+    background-color: rgba(0, 0, 0, 0.7); /* Card transparente escuro */
+    border: 1px solid var(--admin-primary-purple);
+    box-shadow: 0 0 15px var(--admin-glow-effect); /* Brilho cósmico */
+}
+.admin-theme .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 25px var(--admin-secondary-neon-blue), 0 0 40px var(--admin-glow-effect);
+}
+
+
+/* Option Cards on Casa.jsx */
+.option-card-new {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 10px var(--color-shadow-light);
+}
+.admin-theme .option-card-new {
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(20,0,40,0.8));
+    border: 1px solid var(--admin-primary-purple);
+    box-shadow: 0 0 15px var(--admin-glow-effect);
+}
+
+.option-card-new .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.admin-theme .option-card-new .card-title {
+    color: var(--admin-secondary-neon-blue);
+    text-shadow: 0 0 8px var(--admin-glow-effect);
+}
+
+.option-card-new .card-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-muted);
+}
+.admin-theme .option-card-new .card-text {
+    color: rgba(224, 224, 255, 0.7);
+}
+
+
+.icon-large {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-secondary-gold);
+}
+.admin-theme .icon-large {
+    color: var(--admin-secondary-neon-blue);
+    text-shadow: 0 0 10px var(--admin-glow-effect);
+}
+
+
+/* Custom Buttons for Option Cards */
+.btn-outline-primary-custom {
+    color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.btn-outline-primary-custom:hover {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+}
+.admin-theme .btn-outline-primary-custom {
+    color: var(--admin-secondary-neon-blue);
+    border-color: var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 5px var(--admin-secondary-neon-blue);
+}
+.admin-theme .btn-outline-primary-custom:hover {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 15px var(--admin-secondary-neon-blue);
+}
+
+
+.btn-outline-success-custom {
+    color: var(--color-tertiary-green);
+    border-color: var(--color-tertiary-green);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.btn-outline-success-custom:hover {
+    background-color: var(--color-tertiary-green);
+    color: var(--color-white);
+}
+.admin-theme .btn-outline-success-custom {
+    color: var(--admin-secondary-neon-blue); /* Ajustado para neon blue */
+    border-color: var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 5px var(--admin-secondary-neon-blue);
+}
+.admin-theme .btn-outline-success-custom:hover {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 15px var(--admin-secondary-neon-blue);
+}
+
+
+.btn-outline-warning-custom {
+    color: var(--color-secondary-gold);
+    border-color: var(--color-secondary-gold);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.btn-outline-warning-custom:hover {
+    background-color: var(--color-secondary-gold);
+    color: var(--color-white);
+}
+.admin-theme .btn-outline-warning-custom {
+    color: var(--admin-fire-purple);
+    border-color: var(--admin-fire-purple);
+    box-shadow: 0 0 5px var(--admin-fire-purple);
+}
+.admin-theme .btn-outline-warning-custom:hover {
+    background-color: var(--admin-fire-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 0 15px var(--admin-fire-purple);
+}
+
+
+.btn-outline-info-custom {
+    color: var(--color-info);
+    border-color: var(--color-info);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.btn-outline-info-custom:hover {
+    background-color: var(--color-info);
+    color: var(--color-white);
+}
+.admin-theme .btn-outline-info-custom {
+    color: var(--admin-secondary-neon-blue); /* Ajustado para neon blue */
+    border-color: var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 5px var(--admin-secondary-neon-blue);
+}
+.admin-theme .btn-outline-info-custom:hover {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 15px var(--admin-secondary-neon-blue);
+}
+
+.btn-outline-danger-custom {
+    color: var(--color-danger);
+    border-color: var(--color-danger);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.btn-outline-danger-custom:hover {
+    background-color: var(--color-danger);
+    color: var(--color-white);
+}
+.admin-theme .btn-outline-danger-custom {
+    color: var(--admin-fire-purple); /* Estilo de "perigo" com roxo de fogo */
+    border-color: var(--admin-fire-purple);
+    box-shadow: 0 0 5px var(--admin-fire-purple);
+}
+.admin-theme .btn-outline-danger-custom:hover {
+    background-color: var(--admin-fire-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 0 15px var(--admin-fire-purple);
+}
+
+
+.btn-outline-dark-custom {
+    color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+.btn-outline-dark-custom:hover {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+}
+.admin-theme .btn-outline-dark-custom {
+    color: var(--admin-text-light);
+    border-color: var(--admin-text-light);
+    box-shadow: 0 0 5px var(--admin-text-light);
+}
+.admin-theme .btn-outline-dark-custom:hover {
+    background-color: var(--admin-text-light);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 15px var(--admin-text-light);
+}
+
+
+/* Book List Section (ListaLivros.jsx) */
+.library-section {
+    padding: 3rem 0;
+    background-color: var(--color-accent-light);
+    transition: background-color 0.5s ease;
+}
+.admin-theme .library-section {
+    background-color: var(--admin-bg-dark); /* Fundo escuro também para a lista de livros */
+}
+
+.book-card {
+    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+    box-shadow: 5px 5px 15px var(--color-shadow-light);
+    border-left: 5px solid var(--color-secondary-gold);
+}
+.admin-theme .book-card {
+    background: linear-gradient(145deg, rgba(20,0,40,0.8), rgba(0,0,0,0.8)); /* Gradiente escuro para cards */
+    border-left: 5px solid var(--admin-primary-purple);
+    box-shadow: 0 0 15px var(--admin-glow-effect);
+}
+
+
+.book-card .card-img-top {
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom: 1px solid var(--color-shadow-light);
+}
+.admin-theme .book-card .card-img-top {
+    border-bottom: 1px solid var(--admin-primary-purple);
+}
+
+.book-cover-placeholder {
+    background-color: var(--color-quaternary-brown);
+    color: var(--color-white);
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.admin-theme .book-cover-placeholder {
+    background-color: var(--admin-primary-purple);
+    color: var(--admin-text-light);
+    font-family: 'Quantico', sans-serif;
+    text-shadow: 0 0 5px var(--admin-glow-effect);
+}
+
+
+.book-card .card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.book-card .card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: 0.5rem;
+}
+.admin-theme .book-card .card-title {
+    color: var(--admin-secondary-neon-blue);
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 8px var(--admin-glow-effect);
+}
+
+.book-card .card-subtitle {
+    font-style: italic;
+    color: var(--color-quaternary-brown);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+.admin-theme .book-card .card-subtitle {
+    color: rgba(224, 224, 255, 0.7);
+}
+
+.book-card .card-text {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+.admin-theme .book-card .card-text {
+    color: rgba(224, 224, 255, 0.6);
+}
+
+
+.btn-trailer {
+    background-color: var(--color-secondary-gold);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.btn-trailer:hover {
+    background-color: #d18d0f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: var(--color-white);
+}
+
+.admin-theme .btn-trailer {
+    background-color: var(--admin-primary-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 0 10px var(--admin-primary-purple);
+}
+.admin-theme .btn-trailer:hover {
+    background-color: var(--admin-secondary-neon-blue);
+    color: var(--admin-bg-dark);
+    box-shadow: 0 0 20px var(--admin-secondary-neon-blue);
+}
+
+
+.btn-read-pdf {
+    background-color: var(--color-info);
+    color: var(--color-white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.btn-read-pdf:hover {
+    background-color: #148ea1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: var(--color-white);
+}
+.admin-theme .btn-read-pdf {
+    background-color: var(--admin-fire-purple);
+    color: var(--admin-text-light);
+    box-shadow: 0 0 10px var(--admin-fire-purple);
+}
+.admin-theme .btn-read-pdf:hover {
+    background-color: #A020F0; /* Roxo mais vibrante */
+    box-shadow: 0 0 20px #A020F0;
+}
+
+
+/* Modal Styles (Trailer and PDF) */
+.modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--color-white);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+.admin-theme .modal-content {
+    background-color: rgba(0, 0, 0, 0.85); /* Modal escuro */
+    border: 1px solid var(--admin-primary-purple);
+    box-shadow: 0 0 30px var(--admin-glow-effect);
+}
+
+.modal-header.bg-dark-blue {
+    background-color: var(--color-primary-dark) !important;
+    color: var(--color-white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.admin-theme .modal-header.bg-dark-blue {
+    background-color: var(--admin-primary-purple) !important;
+    color: var(--admin-secondary-neon-blue);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    text-shadow: 0 0 5px var(--admin-glow-effect);
+}
+
+
+.modal-title {
+    color: var(--color-white);
+    font-family: 'Merriweather', serif;
+}
+.admin-theme .modal-title {
+    color: var(--admin-secondary-neon-blue);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+.btn-close-white:hover {
+    opacity: 1;
+}
+.admin-theme .btn-close-white {
+    filter: none; /* Desativa o invert */
+    color: var(--admin-secondary-neon-blue); /* Cor do X */
+    font-size: 1.5rem;
+    text-shadow: 0 0 8px var(--admin-glow-effect);
+}
+.admin-theme .btn-close-white:hover {
+    color: var(--admin-glow-effect);
+}
+
+
+/* Loading Spinner and Alert Messages */
+.loading-spinner {
+    border: 4px solid var(--color-accent-light);
+    border-top: 4px solid var(--color-secondary-gold);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 50px auto;
+}
+.admin-theme .loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 15px var(--admin-glow-effect);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.alert-message {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.info-message {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+.admin-theme .info-message {
+    background-color: rgba(0, 255, 255, 0.1);
+    color: var(--admin-secondary-neon-blue);
+    border: 1px solid var(--admin-secondary-neon-blue);
+    box-shadow: 0 0 10px var(--admin-secondary-neon-blue);
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.admin-theme .error-message {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: var(--admin-fire-purple);
+    border: 1px solid var(--admin-fire-purple);
+    box-shadow: 0 0 10px var(--admin-fire-purple);
+}
+
+/* Animations (Animate.css) */
+.animate__animated {
+    animation-duration: 0.8s;
+}
+.animate__fadeIn {
+    animation-name: fadeIn;
+}
+.animate__fadeInUp {
+    animation-name: fadeInUp;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .section-title {
+        font-size: 2.2rem;
+    }
+    .form-card-container {
+        padding: 30px;
+    }
+    .book-card .card-img-top, .book-cover-placeholder {
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .library-title {
+        font-size: 2rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    .icon-large {
+        font-size: 3rem;
+    }
+    .navbar-brand-custom {
+        font-size: 1.5rem;
+    }
+    .nav-link-custom {
+        margin: 5px 0;
+        text-align: center;
+    }
+    .form-card-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-title {
+        font-size: 1.8rem;
+    }
+    .btn-primary-custom, .btn-outline-secondary-custom,
+    .btn-success-custom, .btn-warning-custom {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .btn-trailer, .btn-read-pdf {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+}

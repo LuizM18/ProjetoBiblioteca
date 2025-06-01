@@ -1,0 +1,82 @@
+# Ignorar dependências do Node.js
+/node_modules
+
+# Ignorar variáveis de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar logs e arquivos de depuração
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.pnpm-store/
+logs/
+*.log
+
+# Ignorar resultados de builds/artefatos (se houver, por exemplo, para TS compilado)
+/dist
+/build
+/out
+
+# Ignorar arquivos de editor/IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# Ignorar arquivos temporários e de cache
+*.tmp
+*.bak
+*.swo
+*.swp
+/tmp/
+/cache/
+
+# ===============================================
+# Regras Específicas para Prevenir Upload de Dados Sensíveis
+# ===============================================
+
+# Ignorar arquivos de banco de dados (se houver)
+# Se o seu banco de dados (SQLite, etc.) for criado diretamente na pasta 'database',
+# você DEVE ignorá-lo aqui. Exemplo:
+/database/*.sqlite
+/database/*.db
+/database/*.sqlite3
+/database/*.mdb
+
+# Ignorar backups de banco de dados
+*.sql.bak
+*.db.bak
+
+# Ignorar o arquivo db.js SE ELE CONTIVER CREDENCIAIS DIRETAMENTE (não recomendado)
+# Se o db.js for apenas a configuração de conexão que LÊ do .env, você NÃO PRECISA ignorá-lo.
+# Mas se por algum motivo ele contém dados sensíveis fixos, considere ignorá-lo.
+# É MUITO MAIS SEGURO USAR VARIÁVEIS DE AMBIENTE NO .env PARA CREDENCIAIS.
+# Se db.js contém credenciais LITERAIS, descomente a linha abaixo:
+# /database/db.js
+
+# Ignorar outros arquivos sensíveis que possam surgir
+# Ex: Chaves SSH, certificados, tokens de API
+*.key
+*.pem
+*.pfx
+*.crt
+*.csr
+*.cer
+id_rsa
+id_dsa
+.htpasswd
+
+# Ignorar quaisquer uploads de arquivos ou caches de sessão
+/uploads/
+/sessions/
