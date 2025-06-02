@@ -1,4 +1,4 @@
-# 📚 Projeto Biblioteca V. Final
+# 📚 Projeto Biblioteca
 
 ![Capa do Projeto ou Banner Atraente](https://via.placeholder.com/800x200?text=Sistema+de+Gerenciamento+de+Biblioteca)
 
