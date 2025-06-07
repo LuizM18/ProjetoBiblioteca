@@ -35,7 +35,7 @@
     --admin-bg-dark-new: rgba(0, 0, 0, 0.95); /* Fundo quase preto para alto contraste */
     --admin-primary-red: #A00000; /* Vermelho escuro principal */
     --admin-vivid-red: #B22222; /* Vermelho mais vivo, tipo sangue */
-    --admin-dark-red: #000000; /* Vermelho ainda mais escuro */
+    --admin-dark-red: #000000; /* preto para o fundo */
     --admin-gold-accent: #FFD700; /* Dourado vibrante para acentos e fontes */
     --admin-gold-glow: #FFEA00; /* Dourado mais claro para efeito de brilho */
     --admin-text-light-new: rgba(255, 250, 240, 0.9); /* Texto claro com leve toque amarelado */
